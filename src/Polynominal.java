@@ -8,7 +8,6 @@ public class Polynominal {
 
     private Nodo root;
     private int size;
-    private int constante;
 
     public Polynominal(int[] coefs) {
         for (int coef : coefs) {
@@ -18,7 +17,7 @@ public class Polynominal {
 
     public Polynominal() {
         Random random = new Random();
-        constante = random.nextInt(20);
+        int constante = random.nextInt(20);
         Nodo cons = new Nodo(constante);
         cons.next = root;
         root = cons;
@@ -120,10 +119,7 @@ public class Polynominal {
         if(size == 0){
             parts.append(p.value);
         }
-        if (p == null) {
-            parts.append(constante);
-            return parts.toString();
-        }
+
         for (int i = 0; i < size; i++) {
             if (p.value != 0) {
                 if (p.value < 0) {
@@ -141,20 +137,28 @@ public class Polynominal {
                     parts.append("+");
                 }
             }
-
-
-
             p = p.next;
-
-
         }
 
 
         return parts.toString();
     }
+    public float valueOf(float x){
+        Nodo tmp = root;
+        float exp;
+        float y = 0;
+        for (int i = 0; i <size ; i++) {
+            exp =(float) Math.pow(x,tmp.exponente);
+            exp*=tmp.value;
+            y+=exp;
+            tmp = tmp.next;
 
-    public Iterator iterator() {
-        return new Iterator(root);
+        }
+
+        return y;
     }
+    /*public Iterator iterator() {
+        return new Iterator(root);
+    }*/
 }
 
