@@ -4,22 +4,30 @@ import java.util.Random;
 
 
 public class Polynominal {
-    int constante;
+
+
     private Nodo root;
     private int size;
-    public Polynominal(int constante){
-        this.constante = constante;
+    private int constante;
+
+    public Polynominal(int[] coefs) {
+        for (int coef : coefs) {
+            add(coef);
+        }
     }
-    public Polynominal(){
-        Random rand = new Random();
-        constante = rand.nextInt(50);
+
+    public Polynominal() {
+        Random random = new Random();
+        constante = random.nextInt(20);
     }
+
     public void add(int x) {
-        if(x!=0){
+        //System.out.println(x);
         Nodo n = new Nodo(x);
         n.next = root;
         root = n;
-        size++;}
+        size++;
+        n.exponente = size - 1;
     }
 
     public int get(int pos) {
@@ -30,62 +38,66 @@ public class Polynominal {
         for (int i = 0; i < pos; i++) {
             p = p.next;
         }
+
         return p.value;
     }
-    public int size(){
+
+    public void setCoef(int x, int pos) {
+        if (pos < 0 || pos >= size) {
+            throw new NoSuchElementException();
+        }
+        Nodo tmp = root;
+        for (int i = 0; i < pos; i++) {
+            tmp = tmp.next;
+        }
+        tmp.value = x;
+    }
+
+    public int size() {
         return size;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
+
         StringBuilder parts = new StringBuilder("P(x) = ");
         Nodo p = root;
-        int aux = size-1;
-        for (int i = 0; i <size ; i++) {
-            parts.append(p.value);
-            if (size-i==1){
-                p = p.next;
-                break;
+        if (p == null) {
+            parts.append(constante);
+            return parts.toString();
+        }
+        for (int i = 0; i < size; i++) {
+
+            if (p.value != 0) {
+                if (p.value < 0) {
+                    parts.append("(");
+                }
+                parts.append(p.value);
+                if (p.value < 0) {
+                    parts.append(")");
+                }
+                if (p.exponente != 0) {
+                    parts.append("x^");
+
+                    parts.append(p.exponente);
+                    if (p.value > 0) {
+                        parts.append("+");
+                    }
+
+                }
             }
 
-            parts.append("x^");
-            parts.append(aux);
-            parts.append("+");
-            aux--;
             p = p.next;
+
+
         }
 
 
-        return  parts.toString();
+        return parts.toString();
     }
-    public  Iterator iterator(){
+
+    public Iterator iterator() {
         return new Iterator(root);
     }
 }
 
-class Nodo {
-    int value;
-    Nodo next;
-
-    public Nodo(int value) {
-        this.value = value;
-    }
-}
-
-class Iterator {
-    private Nodo actual;
-
-    public Iterator(Nodo actual) {
-        this.actual = actual;
-    }
-
-    public boolean hasNext() {
-        return actual != null;
-    }
-
-    public int next() {
-        int value = actual.value;
-        actual = actual.next;
-        return value;
-    }
-
-}
