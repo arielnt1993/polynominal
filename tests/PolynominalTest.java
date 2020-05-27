@@ -10,22 +10,15 @@ public class PolynominalTest {
         poly = new Polynominal();
     }
 
-    /*@Test
+    @Test
+    /*if the polynominal has a size of 1 it's number
+    * must be a constant, therefore the poly is a
+    * grade 0 poly.*/
     public void TestIfPolyIszeropoly(){
-        assertTrue(poly.zeroGrade());
+        assertEquals(1,poly.size());
     }
-    @Test
+    /*@Test
     public void TestIfPolysAreEqual(){
-        assertEquals(0,poly.compare());
-    }*/
-    @Test
-    public void TestExpIsRight(){
-        int[] a = new int[3];
-        for (int i = 0; i <a.length ; i++) {
-            a[i] = i+1;
-        }
-        Polynominal t = new Polynominal(a);
+        assertEquals(0,poly.compare());*/
 
-        assertEquals(1,t.getExp(1));
-    }
 }

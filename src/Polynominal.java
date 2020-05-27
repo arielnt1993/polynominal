@@ -19,28 +19,54 @@ public class Polynominal {
     public Polynominal() {
         Random random = new Random();
         constante = random.nextInt(20);
+        Nodo cons = new Nodo(constante);
+        cons.next = root;
+        root = cons;
+        cons.exponente = 0;
+        size++;
     }
-    public void add(Polynominal pol){
-        
-        int pointer = 0;
-        Nodo orig = root;
-        System.out.println("el tamaño del poli x es: "+pol.size());
 
-        for (int i = 0; i <size ; i++) {
-            if(pol.getExp(pointer)==orig.exponente){
-            orig.value += pol.getCoef(pointer);
-            pointer++;
+    public void add(Polynominal pol) {
+        int pointer = 0;
+        int pointer2 = pol.size() - 1;
+        int tam = size;
+        Nodo orig = root;
+        if (tam >= pol.size()) {
+            for (int i = 0; i < tam; i++) {
+                if (pol.getExp(pointer) == orig.exponente) {
+                    orig.value += pol.getCoef(pointer);
+                    pointer++;
+                }
+                orig = orig.next;
+                if (pol.size() - pointer == 0) {
+                    break;
+                }
             }
-            orig = orig.next;
-            if (pol.size()-pointer==0){
-                break;
+        } else {
+            for (int i = 0; i < pol.size(); i++) {
+                if (pol.getExp(pointer) != orig.exponente) {
+                    insert(pol.getCoef(pointer2 - tam));
+                    pointer2--;
+                    pointer++;
+                    continue;
+                } else {
+                    orig.value += pol.getCoef(pointer);
+                    pointer++;
+                }
+
+                if (orig.exponente == 0) {
+                    break;
+                }
+                orig = orig.next;
+
+
             }
         }
 
 
     }
+
     public void insert(int x) {
-        //System.out.println(x);
         Nodo n = new Nodo(x);
         n.next = root;
         root = n;
@@ -91,6 +117,9 @@ public class Polynominal {
 
         StringBuilder parts = new StringBuilder("P(x) = ");
         Nodo p = root;
+        if(size == 0){
+            parts.append(p.value);
+        }
         if (p == null) {
             parts.append(constante);
             return parts.toString();
@@ -112,6 +141,7 @@ public class Polynominal {
                     parts.append("+");
                 }
             }
+
 
 
             p = p.next;
