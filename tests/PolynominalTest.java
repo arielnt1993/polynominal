@@ -1,4 +1,4 @@
-/*import static org.junit.Assert.*;
+import static org.junit.Assert.*;
 import  org.junit.Before;
 import  org.junit.Test;
 
@@ -10,12 +10,22 @@ public class PolynominalTest {
         poly = new Polynominal();
     }
 
-    @Test
+    /*@Test
     public void TestIfPolyIszeropoly(){
         assertTrue(poly.zeroGrade());
     }
     @Test
     public void TestIfPolysAreEqual(){
         assertEquals(0,poly.compare());
+    }*/
+    @Test
+    public void TestExpIsRight(){
+        int[] a = new int[3];
+        for (int i = 0; i <a.length ; i++) {
+            a[i] = i+1;
+        }
+        Polynominal t = new Polynominal(a);
+
+        assertEquals(1,t.getExp(1));
     }
-}*/
+}
