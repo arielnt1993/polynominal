@@ -121,7 +121,7 @@ public class Polynominal {
                     parts.append("x^");
                     parts.append(p.exponente);
                 }
-                if (size - i > 1) {
+                if (size - i > 1&&p.value!=0) {
                     parts.append("+");
                 }
             }
