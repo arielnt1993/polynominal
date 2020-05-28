@@ -111,21 +111,22 @@ public class Polynominal {
         for (int i = 0; i < size; i++) {
             if (p.value != 0) {
                 if (p.value < 0) {
-                    parts.append("(");
-                    parts.append(p.value);
-                    parts.append(")");
+                    parts.append("("+p.value+")");
                 } else {
                     parts.append(p.value);
                 }
                 if (p.exponente != 0) {
-                    parts.append("x^");
-                    parts.append(p.exponente);
+                    parts.append("x^"+p.exponente);
                 }
-                if (size - i > 1&&p.value!=0) {
+                if (size - i > 1  ) {
                     parts.append("+");
                 }
             }
+
             p = p.next;
+
+
+
         }
 
 
@@ -146,8 +147,5 @@ public class Polynominal {
 
         return y;
     }
-    /*public Iterator iterator() {
-        return new Iterator(root);
-    }*/
 }
 

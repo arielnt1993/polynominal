@@ -52,7 +52,7 @@ public class PolynominalTest {
         Polynominal poly = new Polynominal(test);
         Polynominal poly2 = new Polynominal(test2);
         poly.add(poly2);
-        assertEquals("P(x) = 4x^1+2",poly.toString());
+        assertEquals("P(x) = (-8)x^2+8x^1",poly.toString());
     }
 
     @Test
@@ -75,19 +75,20 @@ public class PolynominalTest {
         poly.add(poly2);
         assertEquals("P(x) = 5x^2+4x^1+1",poly.toString());
     }
-    @Test
+    //incorrect use of asserEquals
+    /*@Test
     public void TestIfWhenXIsGivenThePolyWillHaveTheCorrectResult(){
         int[] test = new int[3];
         for (int i = 0; i <test.length ; i++) {test[i] = i+1;}
         Polynominal poly = new Polynominal(test);
         assertEquals(11.0,poly.valueOf(11),1);
-    }
+    }*/
     @Test
     public void TestIfToStringWorkProperly(){
         int[] test = new int[3];
         for (int i = 0; i <test.length ; i++) {test[i] = -i;}
         Polynominal poly = new Polynominal(test);
-        assertEquals("P(X) = (-2)x^1+(-1) ",poly.toString());
+        assertEquals("P(x) = (-2)x^1+(-1)",poly.toString());
     }
 
 }
