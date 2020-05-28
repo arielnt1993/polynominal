@@ -90,5 +90,17 @@ public class PolynominalTest {
         Polynominal poly = new Polynominal(test);
         assertEquals("P(x) = (-2)x^1+(-1)",poly.toString());
     }
-
+    @Test
+    public void TestToGetCorrectCoeficient(){
+        int[] test = new int[3];
+        for (int i = 0; i <test.length ; i++) {test[i] = -i;}
+        Polynominal poly = new Polynominal(test);
+        assertEquals(-2,poly.getCoef(0));
+    }@Test
+    public void TestToGetCorrectExponent(){
+        int[] test = new int[3];
+        for (int i = 0; i <test.length ; i++) {test[i] = -i;}
+        Polynominal poly = new Polynominal(test);
+        assertEquals(1,poly.getExp(0));
+    }
 }

@@ -8,7 +8,7 @@ public class Polynominal {
 
     private Nodo root;
     private int size;
-
+    //si se crea el polinomio este constructor pide un array
     public Polynominal(int[] coefs) {
         for (int coef : coefs) {
             if (coef != 0) {
@@ -16,7 +16,8 @@ public class Polynominal {
             }
         }
     }
-
+    // si no se le dan parametros crea un solo nodo que seria
+    //el termino independiente
     public Polynominal() {
         Random random = new Random();
         int constante = random.nextInt(20);
@@ -26,7 +27,7 @@ public class Polynominal {
         cons.exponente = 0;
         size++;
     }
-
+    //hace la suma de dos polis
     public void add(Polynominal pol) {
         Nodo orig = root;
         int pointer = 0;
@@ -52,7 +53,7 @@ public class Polynominal {
         }
 
     }
-
+    // en este metodo se insertan nuevos valores
     public void insert(int x) {
         Nodo n = new Nodo(x);
         n.next = root;
@@ -66,7 +67,7 @@ public class Polynominal {
             throw new NoSuchElementException();
         }
     }
-
+    //metodo para conseguir el coeficiente que necesitemos
     public int getCoef(int pos) {
         checkPos(pos);
         Nodo p = root;
@@ -76,7 +77,7 @@ public class Polynominal {
 
         return p.value;
     }
-
+    //metodo para setear el coeficionete que necesitemos
     public void setCoef(int x, int pos) {
         checkPos(pos);
         Nodo tmp = root;
@@ -85,7 +86,7 @@ public class Polynominal {
         }
         tmp.value = x;
     }
-
+    //metodo para conseguir el exponente del nodo
     public int getExp(int pos) {
         checkPos(pos);
         Nodo tmp = root;
@@ -94,7 +95,7 @@ public class Polynominal {
         }
         return tmp.exponente;
     }
-
+    //metodo para conseguir el tamaño de la lista
     public int size() {
         return size;
     }
