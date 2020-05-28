@@ -40,14 +40,15 @@ public class Polynominal {
                 orig = orig.next;
             }
         } else {
+            pointer = pointer2;
+            System.out.println(pol.getCoef(pointer));
             for (int i = pointer2 - 1; i > -1; i--) {
                 insert(pol.getCoef(i));
+                orig.value += pol.getCoef(pointer);
+                pointer++;
+                orig = orig.next;
 
             }
-
-        }
-        for (int i = 0; i <size ; i++) {
-
         }
 
     }

@@ -11,14 +11,9 @@ public class PolynominalTest {
     }
 
     @Test
-    /*if the polynominal has a size of 1 it's number
-    * must be a constant, therefore the poly is a
-    * grade 0 poly.*/
     public void TestIfPolyIszeropoly(){
         assertEquals(1,poly.size());
     }
-    /*@Test
-    public void TestIfPolysAreEqual(){
-        assertEquals(0,poly.compare());*/
+    
 
 }
