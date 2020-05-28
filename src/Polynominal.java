@@ -11,7 +11,9 @@ public class Polynominal {
 
     public Polynominal(int[] coefs) {
         for (int coef : coefs) {
-            insert(coef);
+            if (coef != 0) {
+                insert(coef);
+            }
         }
     }
 
@@ -26,42 +28,27 @@ public class Polynominal {
     }
 
     public void add(Polynominal pol) {
-        int pointer = 0;
-        int pointer2 = pol.size() - 1;
-        int tam = size;
         Nodo orig = root;
-        if (tam >= pol.size()) {
-            for (int i = 0; i < tam; i++) {
-                if (pol.getExp(pointer) == orig.exponente) {
+        int pointer = 0;
+        int pointer2 = pol.size() - size;
+        if (size >= pol.size()) {
+            for (int i = 0; i < size; i++) {
+                if (orig.exponente == pol.getExp(pointer)) {
                     orig.value += pol.getCoef(pointer);
                     pointer++;
                 }
                 orig = orig.next;
-                if (pol.size() - pointer == 0) {
-                    break;
-                }
             }
         } else {
-            for (int i = 0; i < pol.size(); i++) {
-                if (pol.getExp(pointer) != orig.exponente) {
-                    insert(pol.getCoef(pointer2 - tam));
-                    pointer2--;
-                    pointer++;
-                    continue;
-                } else {
-                    orig.value += pol.getCoef(pointer);
-                    pointer++;
-                }
-
-                if (orig.exponente == 0) {
-                    break;
-                }
-                orig = orig.next;
-
+            for (int i = pointer2 - 1; i > -1; i--) {
+                insert(pol.getCoef(i));
 
             }
-        }
 
+        }
+        for (int i = 0; i <size ; i++) {
+
+        }
 
     }
 
@@ -116,7 +103,7 @@ public class Polynominal {
 
         StringBuilder parts = new StringBuilder("P(x) = ");
         Nodo p = root;
-        if(size == 0){
+        if (size == 0) {
             parts.append(p.value);
         }
 
@@ -143,14 +130,15 @@ public class Polynominal {
 
         return parts.toString();
     }
-    public float valueOf(float x){
+
+    public float valueOf(float x) {
         Nodo tmp = root;
         float exp;
         float y = 0;
-        for (int i = 0; i <size ; i++) {
-            exp =(float) Math.pow(x,tmp.exponente);
-            exp*=tmp.value;
-            y+=exp;
+        for (int i = 0; i < size; i++) {
+            exp = (float) Math.pow(x, tmp.exponente);
+            exp *= tmp.value;
+            y += exp;
             tmp = tmp.next;
 
         }
