@@ -8,13 +8,16 @@ public class Polynominal {
 
     private Nodo root;
     private int size;
-
+    //si se crea el polinomio este constructor pide un array
     public Polynominal(int[] coefs) {
         for (int coef : coefs) {
-            insert(coef);
+            if (coef != 0) {
+                insert(coef);
+            }
         }
     }
-
+    // si no se le dan parametros crea un solo nodo que seria
+    //el termino independiente
     public Polynominal() {
         Random random = new Random();
         int constante = random.nextInt(20);
@@ -24,47 +27,33 @@ public class Polynominal {
         cons.exponente = 0;
         size++;
     }
-
+    //hace la suma de dos polis
     public void add(Polynominal pol) {
-        int pointer = 0;
-        int pointer2 = pol.size() - 1;
-        int tam = size;
         Nodo orig = root;
-        if (tam >= pol.size()) {
-            for (int i = 0; i < tam; i++) {
-                if (pol.getExp(pointer) == orig.exponente) {
+        int pointer = 0;
+        int pointer2 = pol.size() - size;
+        if (size >= pol.size()) {
+            for (int i = 0; i < size; i++) {
+                if (orig.exponente == pol.getExp(pointer)) {
                     orig.value += pol.getCoef(pointer);
                     pointer++;
                 }
                 orig = orig.next;
-                if (pol.size() - pointer == 0) {
-                    break;
-                }
             }
         } else {
-            for (int i = 0; i < pol.size(); i++) {
-                if (pol.getExp(pointer) != orig.exponente) {
-                    insert(pol.getCoef(pointer2 - tam));
-                    pointer2--;
-                    pointer++;
-                    continue;
-                } else {
-                    orig.value += pol.getCoef(pointer);
-                    pointer++;
-                }
-
-                if (orig.exponente == 0) {
-                    break;
-                }
+            pointer = pointer2;
+            System.out.println(pol.getCoef(pointer));
+            for (int i = pointer2 - 1; i > -1; i--) {
+                insert(pol.getCoef(i));
+                orig.value += pol.getCoef(pointer);
+                pointer++;
                 orig = orig.next;
-
 
             }
         }
 
-
     }
-
+    // en este metodo se insertan nuevos valores
     public void insert(int x) {
         Nodo n = new Nodo(x);
         n.next = root;
@@ -78,7 +67,7 @@ public class Polynominal {
             throw new NoSuchElementException();
         }
     }
-
+    //metodo para conseguir el coeficiente que necesitemos
     public int getCoef(int pos) {
         checkPos(pos);
         Nodo p = root;
@@ -88,7 +77,7 @@ public class Polynominal {
 
         return p.value;
     }
-
+    //metodo para setear el coeficionete que necesitemos
     public void setCoef(int x, int pos) {
         checkPos(pos);
         Nodo tmp = root;
@@ -97,7 +86,7 @@ public class Polynominal {
         }
         tmp.value = x;
     }
-
+    //metodo para conseguir el exponente del nodo
     public int getExp(int pos) {
         checkPos(pos);
         Nodo tmp = root;
@@ -106,7 +95,7 @@ public class Polynominal {
         }
         return tmp.exponente;
     }
-
+    //metodo para conseguir el tamaño de la lista
     public int size() {
         return size;
     }
@@ -116,49 +105,48 @@ public class Polynominal {
 
         StringBuilder parts = new StringBuilder("P(x) = ");
         Nodo p = root;
-        if(size == 0){
+        if (size == 0) {
             parts.append(p.value);
         }
 
         for (int i = 0; i < size; i++) {
             if (p.value != 0) {
                 if (p.value < 0) {
-                    parts.append("(");
-                    parts.append(p.value);
-                    parts.append(")");
+                    parts.append("("+p.value+")");
                 } else {
                     parts.append(p.value);
                 }
                 if (p.exponente != 0) {
-                    parts.append("x^");
-                    parts.append(p.exponente);
+                    parts.append("x^"+p.exponente);
                 }
-                if (size - i > 1) {
+                if (size - i > 1  ) {
                     parts.append("+");
                 }
             }
+
             p = p.next;
+
+
+
         }
 
 
         return parts.toString();
     }
-    public float valueOf(float x){
+
+    public float valueOf(float x) {
         Nodo tmp = root;
         float exp;
         float y = 0;
-        for (int i = 0; i <size ; i++) {
-            exp =(float) Math.pow(x,tmp.exponente);
-            exp*=tmp.value;
-            y+=exp;
+        for (int i = 0; i < size; i++) {
+            exp = (float) Math.pow(x, tmp.exponente);
+            exp *= tmp.value;
+            y += exp;
             tmp = tmp.next;
 
         }
 
         return y;
     }
-    /*public Iterator iterator() {
-        return new Iterator(root);
-    }*/
 }
 
